@@ -1,0 +1,21 @@
+# Logslogs 
+* .lognpm-debug.log 
+* yarn-debug.log 
+* yarn-error.log 
+# Datapids em tempo de execução 
+* .pid 
+* .seed 
+* .pid.lock 
+
+node_modules
+dist
+# Diretório de cobertura usado por ferramentas como istambulcoverage 
+# nyc test cover cover.nyc_output (http://gruntjs.com/creating-plugins#storing-task-files)Diretório de dependência .grunt 
+# Bower (https://bower.io/)bower_components
+# node-waf configation.lock-wscript 
+# Complementos binários compilados (http://nodejs.org/api/addons.html)build / Release 
+# Diretórios de dependêncianode_modules / jspm_packages / 
+# Typescript v1 declaração filestypings / 
+# Diretório opcional de cache npm.npm 
+# cache opcional eslint.eslintcache 
+# Histórico opcional de REPL.node_repl_history # Saída de variáveis de arquivo.yarn-integrityen
