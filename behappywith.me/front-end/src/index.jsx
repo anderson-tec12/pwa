@@ -5,7 +5,10 @@ import	'./img/favicon.ico';
 import	'./css/pure-min.css';
 import	'./css/index.css';
 
+
+import {App} from './App'
+
 const elementRender = document.querySelector('#main')
 
 console.dir(process)
-ReactDom.render(	<h1>Bem-vindo	ao	React!</h1>, elementRender)
+ReactDom.render(<App />, elementRender)
