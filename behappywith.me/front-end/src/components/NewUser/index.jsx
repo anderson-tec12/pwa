@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Input } from '../Input';
 import {Label} from '../Label'
+import {GenderImage} from '../GenderImage'
 
 export function NewUser(){
   const [nameInvalid,setNameInvalid] = useState(true)
@@ -25,6 +26,8 @@ export function NewUser(){
         defaultValue={name}
         onChange={handleUpdateName}
 			/>
+
+      {/* <GenderImage genare="m"/> */}
     </form>
   </div>)
 }
