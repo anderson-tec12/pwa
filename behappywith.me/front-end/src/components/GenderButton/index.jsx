@@ -2,7 +2,7 @@ import	React	from	'react'
 import	'./index.css'
 import	GenderImage	from	'../GenderImage'
 
-function GenderButton(props){
+export function GenderButton(props){
   const {updateGenare, genare, isSelected} = props
 
   return (
