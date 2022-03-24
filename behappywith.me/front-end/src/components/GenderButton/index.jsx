@@ -1,5 +1,16 @@
-function GenderButton(){
+import	React	from	'react'
+import	'./index.css'
+import	GenderImage	from	'../GenderImage'
+
+function GenderButton(props){
+  const {updateGenare, genare, isSelected} = props
+
   return (
-    <div></div>
+    <a 	
+      className={isSelected ? "gender-button selected-gender-button" :"gender-button"} 
+      href="#!"	 
+      onClick={e => updateGenare(e,genare)}>
+        <GenderImage genare={genare} />
+      </a>
   )
 }
