@@ -2,41 +2,51 @@ import React, {useState} from 'react';
 import { Input } from '../Input';
 import {Label} from '../Label'
 import {GenderSelector} from '../GenderSelector'
-import {GenderButton} from '../GenderButton'
+import {Button} from '../Button'
+
 import UserModel from '../../models/user'
-
 export function NewUser(){
-  const [newUser, setUser] = useState({
-    user: new UserModel(),
-    validate:{
-      genareInvalid:false,
-      nameInvalid:false
-    }
-  })
+  
 
-  // const [nameInvalid,setNameInvalid] = useState(false)
+  const [userName, setUserName] = useState('')
+  const [userGenare, setUserGenare] = useState('')
+  const [userNameValid, setUserNameValid] = useState(false)
+  const [userGenareValid, setUserGenareValid] = useState(false)
 
-
-  // const [name, setName] = useState('')
-  // const [genare, setGenare] = useState('')
 
   const handleUpdateName = (e) => {
 
     // setName(e.target.value)
-    const updateUser = {...newUser}
-    updateUser.user.name = e.target.value
-    setUser(updateUser)
+    // const updateUser = user
+    // updateUser.user.name = e.target.value
+    setUserName(e.target.value)
     
   }
 
   const updateGenare = (e, genare_) => {
     e.preventDefault()
+    setUserGenare(genare_)
+    // setGenare(genare_)
+  }
+
+  const valid = (e) => {
+    e.preventDefault()
+    console.log('O botão proximo foi clicado')
+    
+    setUserGenareValid(!["m", "f"].some((item) => item === userGenare))
+
+
+    if (
+      typeof userName == "string" &&
+      userName.length !== 0 &&
+      userName.length <= 3
+    ) {
+      setUserNameValid(false);
+    }else{
+      setUserNameValid(true)
+    }
 
     
-    const updateUser = {...newUser}
-    updateUser.user.genare = genare_
-    setUser(updateUser)
-    // setGenare(genare_)
   }
 
   return (
@@ -48,22 +58,24 @@ export function NewUser(){
         placeholder="Digite seu nome"
         maxLength="40"
         readOnly={false}
-        valorInvalido={newUser.user.name ? false : true}
-        defaultValue={newUser.user.name}
+        valorInvalido={userNameValid}
+        defaultValue={userName}
         onChange={handleUpdateName}
 			/>
 
       
         <Label
-			  texto="Seu	gênero:"
-				valorInvalido={newUser.validate.genareInvalid}
+			  texto="Seu gênero:"
+				valorInvalido={userGenareValid}
 			/>
 			
       <GenderSelector
-				valueInValid={newUser.validate.genareInvalid}
-				genere={newUser.user.genare}
+				valueInValid={userGenareValid}
+				genere={userGenare}
 				updateGenare={updateGenare}
 			/>
+
+      <Button onClick={valid} text="Próximo" primary />
       
 
       {/* <GenderImage genare="m"/> */}
