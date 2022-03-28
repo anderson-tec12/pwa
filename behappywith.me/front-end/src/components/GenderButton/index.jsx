@@ -1,6 +1,6 @@
 import	React	from	'react'
+import	{GenderImage}	from	'../GenderImage'
 import	'./index.css'
-import	GenderImage	from	'../GenderImage'
 
 export function GenderButton(props){
   const {updateGenare, genare, isSelected} = props
