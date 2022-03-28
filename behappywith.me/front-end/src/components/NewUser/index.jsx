@@ -3,23 +3,40 @@ import { Input } from '../Input';
 import {Label} from '../Label'
 import {GenderSelector} from '../GenderSelector'
 import {GenderButton} from '../GenderButton'
+import UserModel from '../../models/user'
 
 export function NewUser(){
-  const [nameInvalid,setNameInvalid] = useState(false)
-  const [genareInvalid, setGenareInvalid] = useState(false)
+  const [newUser, setUser] = useState({
+    user: new UserModel(),
+    validate:{
+      genareInvalid:false,
+      nameInvalid:false
+    }
+  })
 
-  const [name, setName] = useState('')
-  const [genare, setGenare] = useState('')
+  // const [nameInvalid,setNameInvalid] = useState(false)
+
+
+  // const [name, setName] = useState('')
+  // const [genare, setGenare] = useState('')
 
   const handleUpdateName = (e) => {
 
-    setName(e.target.value)
+    // setName(e.target.value)
+    const updateUser = {...newUser}
+    updateUser.user.name = e.target.value
+    setUser(updateUser)
     
   }
 
   const updateGenare = (e, genare_) => {
     e.preventDefault()
-    setGenare(genare_)
+
+    
+    const updateUser = {...newUser}
+    updateUser.user.genare = genare_
+    setUser(updateUser)
+    // setGenare(genare_)
   }
 
   return (
@@ -31,20 +48,20 @@ export function NewUser(){
         placeholder="Digite seu nome"
         maxLength="40"
         readOnly={false}
-        valorInvalido={name ? false : nameInvalid}
-        defaultValue={name}
+        valorInvalido={newUser.user.name ? false : true}
+        defaultValue={newUser.user.name}
         onChange={handleUpdateName}
 			/>
 
       
         <Label
 			  texto="Seu	gênero:"
-				valorInvalido={genareInvalid}
+				valorInvalido={newUser.validate.genareInvalid}
 			/>
 			
       <GenderSelector
-				valueInValid={genareInvalid}
-				genere={genare}
+				valueInValid={newUser.validate.genareInvalid}
+				genere={newUser.user.genare}
 				updateGenare={updateGenare}
 			/>
       
