@@ -5,6 +5,7 @@ import {GenderSelector} from '../GenderSelector'
 import {Button} from '../Button'
 
 import UserModel from '../../models/user'
+import { toast } from 'react-toastify';
 export function NewUser(){
   
 
@@ -12,6 +13,7 @@ export function NewUser(){
   const [userGenare, setUserGenare] = useState('')
   const [userNameValid, setUserNameValid] = useState(false)
   const [userGenareValid, setUserGenareValid] = useState(false)
+  const [primaryViewComplete, setPrimaryViewComplete] = useState(false)
 
 
   const handleUpdateName = (e) => {
@@ -29,11 +31,15 @@ export function NewUser(){
     // setGenare(genare_)
   }
 
-  const valid = (e) => {
+  const valid_old = (e) => {
     e.preventDefault()
+
+    
     console.log('O botão proximo foi clicado')
     
-    setUserGenareValid(!["m", "f"].some((item) => item === userGenare))
+    let genareIsValid = !["m", "f"].some((item) => item === userGenare)
+    setUserGenareValid(genareIsValid)
+
 
 
     if (
@@ -46,6 +52,45 @@ export function NewUser(){
       setUserNameValid(true)
     }
 
+    
+  }
+  const valid = (e) => {
+    e.preventDefault()
+
+    let genareIsValid = !["m", "f"].some((item) => item === userGenare)   
+    let userNameIsValid = false
+
+    if (
+      typeof userName == "string" &&
+      userName.length !== 0 &&
+      userName.length <= 40
+    ) {
+      userNameIsValid = false
+    }else{
+      userNameIsValid = true      
+    }
+
+    // setUserGenareValid(genareIsValid)
+    // setUserNameValid(userNameIsValid)
+
+
+    let	msg	=	'';				
+		let	isViewComplete	=	false;
+    
+    if(genareIsValid && userNameIsValid){     
+      msg = 'os campos nome e genero estão invalidos'
+    }else if(userNameIsValid){
+      msg	=	'Seu	nome	está	inválido!'
+    }else if(genareIsValid){
+      msg	=	'Selecione	seu	gênero!'
+    }else{
+      isViewComplete = true 
+    }
+
+
+    if(!isViewComplete){
+      toast.error(msg)
+    }
     
   }
 
