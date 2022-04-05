@@ -28,32 +28,77 @@ export function NewUser(){
   const updateGenare = (e, genare_) => {
     e.preventDefault()
     setUserGenare(genare_)
-    // setGenare(genare_)
+ 
   }
 
-  const valid_old = (e) => {
-    e.preventDefault()
+  const  renderName = () => {
+    return (
+      <section>
+        <Label htmlFor="Nome" text="Informe seu nome" />
+        <Input
+          id="nome"
+          placeholder="Digite seu nome"
+          maxLength="40"
+          readOnly={false}
+          valorInvalido={userNameValid}
+          defaultValue={userName}
+          onChange={handleUpdateName}
+        />
+      </section>
+    )
+  }
 
-    
-    console.log('O botão proximo foi clicado')
-    
-    let genareIsValid = !["m", "f"].some((item) => item === userGenare)
-    setUserGenareValid(genareIsValid)
-
-
-
-    if (
-      typeof userName == "string" &&
-      userName.length !== 0 &&
-      userName.length <= 3
-    ) {
-      setUserNameValid(false);
-    }else{
-      setUserNameValid(true)
+  const renderGenare = () => {
+    if(primaryViewComplete){
+      return null
     }
 
-    
+    return (
+      <section>
+        <Label
+          texto="Seu gênero:"
+          valorInvalido={userGenareValid}
+        />
+			
+      <GenderSelector
+				valueInValid={userGenareValid}
+				genere={userGenare}
+				updateGenare={updateGenare}
+			/>
+      </section>
+    )
   }
+
+  const renderButtons = () => {
+    if(primaryViewComplete){
+      return(
+        
+         
+        <section style={{
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}>
+          <Button onClick={e => {
+            e.preventDefault();
+            setPrimaryViewComplete(false)
+          }} text="Voltar"  />
+
+          <Button  text="Salvar"  primary />
+        </section>
+      
+        
+      )
+
+      
+    }
+
+    return (
+      <section>
+        <Button onClick={valid} text="Próximo" primary />
+      </section>
+    )
+  }
+
   const valid = (e) => {
     e.preventDefault()
 
@@ -70,8 +115,7 @@ export function NewUser(){
       userNameIsValid = true      
     }
 
-    // setUserGenareValid(genareIsValid)
-    // setUserNameValid(userNameIsValid)
+   
 
 
     let	msg	=	'';				
@@ -79,10 +123,14 @@ export function NewUser(){
     
     if(genareIsValid && userNameIsValid){     
       msg = 'os campos nome e genero estão invalidos'
+      setUserGenareValid(true)
+      setUserNameValid(true)
     }else if(userNameIsValid){
       msg	=	'Seu	nome	está	inválido!'
+      setUserNameValid(true)
     }else if(genareIsValid){
       msg	=	'Selecione	seu	gênero!'
+      setUserGenareValid(true)
     }else{
       isViewComplete = true 
     }
@@ -90,43 +138,21 @@ export function NewUser(){
 
     if(!isViewComplete){
       toast.error(msg)
+      return 
     }
+
+    setPrimaryViewComplete(true)
+    setUserNameValid(false)
+    setUserGenareValid(false)
     
   }
 
   return (
   <div className="center">
     <form className="pure-form pure-form-stacked	">
-      <Label htmlFor="Nome" text="Informe seu nome" />
-      <Input
-        id="nome"
-        placeholder="Digite seu nome"
-        maxLength="40"
-        readOnly={false}
-        valorInvalido={userNameValid}
-        defaultValue={userName}
-        onChange={handleUpdateName}
-			/>
-
-      
-        <Label
-			  texto="Seu gênero:"
-				valorInvalido={userGenareValid}
-			/>
-			
-      <GenderSelector
-				valueInValid={userGenareValid}
-				genere={userGenare}
-				updateGenare={updateGenare}
-			/>
-
-      <Button onClick={valid} text="Próximo" primary />
-      
-
-      {/* <GenderImage genare="m"/> */}
-     {
-        // <GenderButton updateGenare={(a = 'a',b = 'b') => console.log(a,b)} genare={'m'} isSelected={false} />
-     }
+     {renderName()}
+     {renderGenare()}
+     {renderButtons()}
     </form>
   </div>)
 }

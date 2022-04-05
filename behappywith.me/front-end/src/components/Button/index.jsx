@@ -9,6 +9,8 @@ export function Button(props){
     marginTop:'10px',
     width:'120px',
     height:'38px',
+    color:props.primary && 	'#e6e6e6',
+    border:'none'
   }
 
   const classes = {
@@ -20,7 +22,7 @@ export function Button(props){
   return (
     <button 
       className={classes} 
-      styles={styles}
+      style={styles}
       onClick={props.onClick}
     >{props.text}</button>
   )
